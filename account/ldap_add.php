@@ -47,7 +47,7 @@ if ($_POST['formSent'] > 0) {
 
         $password = "{SHA}" . base64_encode(pack("H*", sha1($_POST['pass'])));
 
-        if (isset($_FILES['profilePhoto'])) {
+        /*if (isset($_FILES['profilePhoto'])) {
 
             $tmp_path = sys_get_temp_dir() . $_FILES['profilePhoto']['tmp_name'];
             echo $tmp_path . "\n";
@@ -60,11 +60,12 @@ if ($_POST['formSent'] > 0) {
         }
 
         echo "<pre>$imgPlain</pre>";
+*/
 
         $user['cn'] = explode('@', $email)[0];
         $user['sn'] = $_POST['lastName'];
         $user['givenName'] = $_POST['firstName'];
-        $user['active'] = !isset($_POST['firstName']) ? 1 : 0;
+        $user['active'] = !isset($_POST['passiv']) ? 1 : 0;
         $user['ressort'] = $_POST['ressort'];
         $user['birthdate'] = $_POST['birthday'];
         $user['entrydate'] = $_POST['entryDate'];
@@ -73,11 +74,11 @@ if ($_POST['formSent'] > 0) {
         $user['university'] = $universities[$_POST['university']];
         $user['unishort'] = $_POST['university'];
         $user['courseofstudies'] = $_POST['courseofstudies'];
-        $user['fieldofstudies'] = $_POST['fieldofstudies'];
+        $user['fieldeofstudies'] = $_POST['fieldofstudies']; // so auch im LDAP mit field"e"ofstudies
         $user['degree'] = $_POST['degree'];
         $user['status'] = $_POST['memberstatus'];
         $user['passivesince'] = isset($_POST['passiv']) ? $_POST['passiveSince'] : " ";
-        $user['passiveuntil'] = ' ';
+        $user['passiveuntil'] = isset($_POST['passiv']) ? $_POST['passiveUntil'] : " ";
         $user['mail'] = $email;
         $user['objectclass'][0] = "top";
         $user['objectclass'][1] = "person";
@@ -87,6 +88,20 @@ if ($_POST['formSent'] > 0) {
         $user['userPassword'] = $password;
         $user['jpegPhoto'] = $imgPlain;
 
+        $user['exitdate'] = ' ';
+        $user['apiKey'] = ' ';
+        $user['apiKeyExpire'] = ' ';
+        $user['nfcId'] = ' ';
+        $user['extrafield1'] = ' ';
+        $user['extrafield2'] = ' ';
+        $user['extrafield3'] = ' ';
+        $user['extrafield4'] = ' ';
+        $user['extrafield5'] = ' ';
+        $user['extrafield6'] = ' ';
+        $user['extrafield7'] = ' ';
+        $user['extrafield8'] = ' ';
+        $user['extrafield9'] = ' ';
+        $user['extrafield10'] = ' ';
 //        add more structure by sorting by first char of lastName
 //        $char = substr($_POST['lastName'], 0, 1);
 //        $dn = "cn=" . $user['cn'] . ",ou=" . $char . ",ou=people," . $ldap->getBaseDn();
@@ -282,6 +297,10 @@ if ($_POST['formSent'] > 0) {
                 <div class="form-label-group" id="passiveSinceWrapper" style="display: none;">
                     <input type="date" class="form-control" id="passiveSince" name="passiveSince">
                     <label for="passiveSince">passiv seit:</label>
+                </div>
+                <div class="form-label-group" id="passiveUntilWrapper" style="display: none;">
+                    <input type="date" class="form-control" id="passiveUntil" name="passiveUntil">
+                    <label for="passiveUntil">passiv bis voraussichtlich:</label>
                 </div>
             </fieldset>
         </div>

@@ -45,10 +45,20 @@ if ($_POST['func'] == 'chgPwd') {
         <div class="alert alert-success mt-4">
             Dein Nutzer wurde erfolgreich im System angelegt.
         </div>
+    <?php } else { ?>
+        <div class="card" style="">
+            <div class="card-body">
+                <h5 class="card-title">LDAP Status</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Dein LDAP Account existiert bereits</h6>
+                <p class="card-text">
+                </p>
+            </div>
+        </div>
     <?php }
 } ?>
 <div class="row">
-<!--    <div class="col-md-3">-->
+
+     <!--    <div class="col-md-3">-->
 <!--        <form action="--><?//= $_SERVER['PHP_SELF'] ?><!--" method="post">-->
 <!--            <input type="hidden" name="func" value="chgPwd">-->
 <!--            <fieldset>-->
