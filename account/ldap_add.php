@@ -45,7 +45,7 @@ if ($_POST['formSent'] > 0) {
 
     if ($_POST['pass'] == $_POST['passCheck'] && $imap->auth()) {
 
-        $password = "{SHA}" . base64_encode(pack("H*", sha1($_POST['pass'])));
+        $password = $_POST['pass'];
 
         /*if (isset($_FILES['profilePhoto'])) {
 
